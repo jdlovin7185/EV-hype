@@ -9,15 +9,15 @@ let T = new Twit ({
   strictSSL: true
 });
 
-//  T.post('statuses/update', { status: "🐳" }, function(err, data, response) {
+//  T.post('statuses/update', { status: "Have a good day! 🦭" }, function(err, data, response) {
 //   console.log(data)
 //   });
 
-// T.post('statuses/retweet', { q: '#yolo', count: 2 }, 
+// T.post('statuses/retweet', { q: 'Rivian', count: 2 }, 
 // function(err, data, response) {
 //   console.log(data)
 // });
 
-T.get('search/tweets', { q: 'banana', count: 5 }, function(err, data, response) {
+T.get('search/tweets', { q: '', count: 5 }, function(err, data, response) {
   console.log(data)
 });
