@@ -1,0 +1,23 @@
+{
+  "name": "twitter-bot",
+  "version": "1.0.0",
+  "description": "A bot that tweets or retweets eletric vehicle news",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdlovin7185/EV-hype.git"
+  },
+  "author": "Joshua Lovin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdlovin7185/EV-hype/issues"
+  },
+  "homepage": "https://github.com/jdlovin7185/EV-hype#readme",
+  "dependencies": {
+    "morgan": "^1.10.0",
+    "twit": "^2.2.11"
+  }
+}
