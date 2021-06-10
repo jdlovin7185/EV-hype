@@ -18,6 +18,6 @@
   "homepage": "https://github.com/jdlovin7185/EV-hype#readme",
   "dependencies": {
     "morgan": "^1.10.0",
-    "twit": "^2.2.11"
+    "twitter": "^1.7.1"
   }
 }

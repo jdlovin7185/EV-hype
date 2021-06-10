@@ -1,17 +1,37 @@
-const Twit = require('twit');
-const T = new Twit({
-  consumer_key: process.env.eR0PvSoG1EfRkd1IoIUocosIY,
-  consumer_secret: process.env.W4XyHuTiLu7f07fBzqFggUnDO14AF0uayiovunJba5cWgVZZL4,
-  access_token: process.env.1390130402627661827-DjjSTwZpyOVKRrqpezg10aiZINJZQG,
-  access_token_secret: process.env.9caNozmeDEdlk3gyy3CJufeU8nKuCAUwg0SIFdE8VRxpk
-});
+const Twitter = require('twitter');
+const morgan = require('morgan');
+const config = require('./config.js');
+const T = new Twitter(config);
 
-// start stream and track tweets
-const stream = T.stream('statuses/filter', {track: '#Rivian'});
+// Set up search parameters
+let params = {
+  q: '#yolo',
+  count: 1,
+  result_type: 'recent',
+  lang: 'en'
+}
 
-
-
-// event handler
-stream.on('tweet', tweet => {
-  // perform action here
-});
+T.get('search/tweets', params, function(err, data, response) {
+  if(!err){
+    for(let i =0; i < data.statuses.length; i++){
+      // Get the Tweet Id from returned data
+      let id = { id: data.statuses[i].id_str }
+      // Try to favorite the tweet
+      T.post('favorites/create', id, function(err, response) {
+        // if the favorite fails, log the error message
+        if(err){
+          console.log(err);
+        }
+        // if the favorite is successful, log the url of the tweet
+        else { 
+          let username = response.user.screen_name;
+          let tweetId = response.id_str;
+          console.log('Favorited: ',
+          `https://twitter.com/${username}/status/${tweetId}`)
+        }
+      });
+    }
+  } else {
+    console.log(err);
+  }
+})
