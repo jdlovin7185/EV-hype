@@ -1,37 +1,23 @@
-const Twitter = require('twitter');
-const morgan = require('morgan');
-const config = require('./config.js');
-const T = new Twitter(config);
+require('dotenv').config()
+const Twit = require('twit');
 
-// Set up search parameters
-let params = {
-  q: '#yolo',
-  count: 1,
-  result_type: 'recent',
-  lang: 'en'
-}
+let T = new Twit ({
+  consumer_key: process.env.TWIT_CONSUMER_KEY,
+  consumer_secret: process.env.TWIT_CONSUMER_SECRET,
+  access_token: process.env.TWIT_ACCESS_TOKEN,
+  access_token_secret: process.env.TWIT_ACCESS_TOKEN_SECRET, 
+  strictSSL: true
+});
 
-T.get('search/tweets', params, function(err, data, response) {
-  if(!err){
-    for(let i =0; i < data.statuses.length; i++){
-      // Get the Tweet Id from returned data
-      let id = { id: data.statuses[i].id_str }
-      // Try to favorite the tweet
-      T.post('favorites/create', id, function(err, response) {
-        // if the favorite fails, log the error message
-        if(err){
-          console.log(err);
-        }
-        // if the favorite is successful, log the url of the tweet
-        else { 
-          let username = response.user.screen_name;
-          let tweetId = response.id_str;
-          console.log('Favorited: ',
-          `https://twitter.com/${username}/status/${tweetId}`)
-        }
-      });
-    }
-  } else {
-    console.log(err);
-  }
-})
+//  T.post('statuses/update', { status: "🐳" }, function(err, data, response) {
+//   console.log(data)
+//   });
+
+// T.post('statuses/retweet', { q: '#yolo', count: 2 }, 
+// function(err, data, response) {
+//   console.log(data)
+// });
+
+T.get('search/tweets', { q: 'banana', count: 5 }, function(err, data, response) {
+  console.log(data)
+});
